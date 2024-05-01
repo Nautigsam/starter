@@ -4,7 +4,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html", "cssls" }
+local servers = { "pylsp", "clangd" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -15,9 +15,17 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- typescript
-lspconfig.tsserver.setup {
-  on_attach = on_attach,
+lspconfig.bicep.setup {
   on_init = on_init,
+  on_attach = on_attach,
   capabilities = capabilities,
+  cmd = { "bicep-lsp" }
+}
+
+require("deno-nvim").setup {
+  server = {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities
+  }
 }
