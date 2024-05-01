@@ -23,6 +23,8 @@ require("lazy").setup({
   },
 
   { import = "plugins" },
+
+  { "AndrewRadev/linediff.vim", lazy = false },
 }, lazy_config)
 
 -- load theme
@@ -35,3 +37,10 @@ require "autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*.tf", "*.tfvars" },
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
