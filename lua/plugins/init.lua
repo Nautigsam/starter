@@ -1,5 +1,30 @@
 return {
   {
+    "NvChad/nvim-colorizer.lua",
+    opts = {
+      user_default_options = {
+        names = false,
+      },
+    },
+  },
+
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "rust-analyzer",
+        "python-lsp-server",
+        "bicep-lsp",
+        "lua-language-server",
+        "clangd",
+        "deno",
+        "black",
+        "terraform-ls",
+      },
+    },
+  },
+
+  {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
     opts = require "configs.conform",
@@ -21,5 +46,42 @@ return {
   --      "html", "css"
   -- 		},
   -- 	},
-  -- },
+  --
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      git = { enable = true },
+    },
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("nvchad.configs.lspconfig").defaults()
+      require "configs.lspconfig"
+    end,
+  },
+
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end,
+  },
+
+  {
+    "mrcjkb/rustaceanvim",
+    ft = "rust",
+  },
+
+  {
+    "carlsmedstad/vim-bicep",
+    ft = "bicep",
+  },
+
+  {
+    "sigmaSd/deno-nvim",
+  },
 }
